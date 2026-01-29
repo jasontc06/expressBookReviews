@@ -70,6 +70,10 @@ public_users.get('/review/:isbn', (req, res) => {
     const isbn = req.params.isbn;
     if (!books[isbn]) return res.status(404).json({ message: "Book not found" });
     res.status(200).json(books[isbn].reviews);
+    if (!books[isbn].reviews || Object.keys(books[isbn].reviews).length === 0) {
+        return res.json({ message: "No reviews found for this book." });
+    }
+    
 });
 
 // --------------------
