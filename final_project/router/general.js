@@ -116,14 +116,17 @@ public_users.get('/async/author/:author', async (req, res) => {
 /**
  * TASK 13 – Get books by title (async/await + Axios)
  */
-public_users.get('/async/title/:title', async (req, res) => {
-    const title = req.params.title;
+public_users.get('/async/author/:author', async (req, res) => {
+    const author = req.params.author;
     try {
-        const response = await axios.get(`http://localhost:5000/title/${title}`);
+        const response = await axios.get(`http://localhost:5000/author/${author}`);
         res.status(200).json(response.data);
     } catch (err) {
-        res.status(500).json({ message: "Error fetching books by title" });
+        console.error("Axios fetch failed:", err);
+        res.status(500).json({
+            message: "Error fetching books by author",
+            error: err.message
+        });
     }
 });
-
 module.exports.general = public_users;
